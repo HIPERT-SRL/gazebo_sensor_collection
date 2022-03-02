@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:property name="use_gpu"  value="true"/>
+    <xacro:macro name="lidar_gazebo" params="name topic_points hz lasers samples min_range max_range noise min_angle max_angle vfov_min vfov_max gpu">
+    
+    <gazebo reference="${name}_link">
+        <xacro:if value="${gpu}">
+            <sensor type="gpu_ray" name="${name}_sensor">
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>false</visualize>
+            <update_rate>${hz}</update_rate>
+            <ray>
+                <scan>
+                <horizontal>
+                    <samples>${samples}</samples>
+                    <resolution>1</resolution>
+                    <min_angle>${min_angle}</min_angle>
+                    <max_angle>${max_angle}</max_angle>
+                </horizontal>
+                <vertical>
+                    <samples>${lasers}</samples>
+                    <resolution>1</resolution>
+                    <min_angle>${vfov_min}</min_angle>
+                    <max_angle>${vfov_max}</max_angle>
+                </vertical>
+                </scan>
+                <range>
+                <min>${min_range}</min>
+                <max>${max_range}</max>
+                <resolution>0.03</resolution>
+                </range>
+            </ray>
+            <plugin name="${name}_gazebo_ros_laser_controller" filename="libgazebo_ros_lidar_gpu.so">
+                <topicName>${topic_points}</topicName>
+                <frameName>${name}_link</frameName>
+                <min_range>${min_range}</min_range>
+                <max_range>${max_range}</max_range>
+                <gaussianNoise>${noise}</gaussianNoise>
+            </plugin>
+            </sensor>
+        </xacro:if>
+        <xacro:unless value="${gpu}">
+            <sensor type="ray" name="${name}_sensor">
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>false</visualize>
+            <update_rate>${hz}</update_rate>
+            <ray>
+                <scan>
+                <horizontal>
+                    <samples>${samples}</samples>
+                    <resolution>1</resolution>
+                    <min_angle>${min_angle}</min_angle>
+                    <max_angle>${max_angle}</max_angle>
+                </horizontal>
+                <vertical>
+                    <samples>${lasers}</samples>
+                    <resolution>1</resolution>
+                    <min_angle>${vfov_min}</min_angle>
+                    <max_angle>${vfov_max}</max_angle>
+                </vertical>
+                </scan>
+                <range>
+                <min>${min_range}</min>
+                <max>${max_range}</max>
+                <resolution>0.03</resolution>
+                </range>
+            </ray>
+            <plugin name="${name}_gazebo_ros_laser_controller" filename="libgazebo_ros_lidar.so">
+                <topicName>${topic_points}</topicName>
+                <frameName>${name}_link</frameName>
+                <min_range>${min_range}</min_range>
+                <max_range>${max_range}</max_range>
+                <gaussianNoise>${noise}</gaussianNoise>
+            </plugin>
+            </sensor>
+        </xacro:unless>
+    </gazebo>
+    </xacro:macro>
+</robot>
