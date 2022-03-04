@@ -2,8 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:include filename="$(find gazebo_sensor_collection)/urdf/gazebo/lidar.gazebo.xacro" />
     <xacro:property name="M_PI" value="3.1415926535897931" />
-    <xacro:macro name="OS1" params="*origin parent:=base_link name:=os0 topic_points:=/os1/points hz:=10 lasers:=64 samples:=1024 
-                                    noise:=0.01 gpu:=true">
+    <xacro:macro name="pandar_XT32" params="*origin parent:=base_link name:=pandar topic_points:=/pandar/points gpu:=true">
     
     <joint name="${name}_frame_joint" type="fixed">
         <xacro:insert_block name="origin" /> 
@@ -20,20 +19,20 @@
         <collision name="base_collision">
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <cylinder radius="0.04" length="0.073"/>
+                <cylinder radius="0.05" length="0.076"/>
             </geometry>
         </collision>
         <visual name="base_visual">
-            <origin xyz="0 0 0.0" rpy="0 0 1.5707" />
+            <origin xyz="0 0 0.0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://gazebo_sensor_collection/meshes/ouster/ouster.dae" /> 
+                <cylinder radius="0.05" length="0.076"/>
             </geometry>
         </visual>
     </link>
 
-    <xacro:gazebo_lidar name="${name}" topic_points="${topic_points}" hz="${hz}" lasers="${lasers}" samples="${samples}" 
-                      min_range="0.3" max_range="120" noise="${noise}" min_angle="-${M_PI}" 
-                      max_angle="${M_PI}" vfov_min="-0.3927" vfov_max="0.3927" gpu="${gpu}"/>
+    <xacro:gazebo_lidar name="${name}" topic_points="${topic_points}" hz="10" lasers="32" samples="2000" 
+                      min_range="0.1" max_range="120" noise="0.005" min_angle="-${M_PI}" 
+                      max_angle="${M_PI}" vfov_min="-0.279253" vfov_max="0.261799" gpu="${gpu}"/>
 
     </xacro:macro>
 </robot>

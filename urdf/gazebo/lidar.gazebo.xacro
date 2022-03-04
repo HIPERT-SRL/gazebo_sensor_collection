@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:property name="use_gpu"  value="true"/>
-    <xacro:macro name="lidar_gazebo" params="name topic_points hz lasers samples min_range max_range noise min_angle max_angle vfov_min vfov_max gpu">
+    <xacro:macro name="gazebo_lidar" params="name topic_points hz lasers samples min_range max_range noise min_angle max_angle vfov_min vfov_max gpu">
     
     <gazebo reference="${name}_link">
         <xacro:if value="${gpu}">
@@ -31,11 +31,12 @@
                 </range>
             </ray>
             <plugin name="${name}_gazebo_ros_laser_controller" filename="libgazebo_ros_lidar_gpu.so">
-                <topicName>${topic_points}</topicName>
+                <topicName>/${namespace}/${topic_points}</topicName>
                 <frameName>${name}_link</frameName>
                 <min_range>${min_range}</min_range>
                 <max_range>${max_range}</max_range>
                 <gaussianNoise>${noise}</gaussianNoise>
+                <robotNamespace>/</robotNamespace>
             </plugin>
             </sensor>
         </xacro:if>
@@ -66,11 +67,12 @@
                 </range>
             </ray>
             <plugin name="${name}_gazebo_ros_laser_controller" filename="libgazebo_ros_lidar.so">
-                <topicName>${topic_points}</topicName>
+                <topicName>/${namespace}/${topic_points}</topicName>
                 <frameName>${name}_link</frameName>
                 <min_range>${min_range}</min_range>
                 <max_range>${max_range}</max_range>
                 <gaussianNoise>${noise}</gaussianNoise>
+                <robotNamespace>/</robotNamespace>
             </plugin>
             </sensor>
         </xacro:unless>
