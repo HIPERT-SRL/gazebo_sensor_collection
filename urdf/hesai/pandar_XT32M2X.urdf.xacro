@@ -31,17 +31,17 @@
     </link>
 
     <xacro:if value="${hz == 5}">
-    <xacro:property name="samples" value="${360.0 / 0.09}" />
+    <xacro:property name="samples" value="4000" />
     </xacro:if>
     <xacro:if value="${hz == 10}">
-    <xacro:property name="samples" value="${360.0 / 0.18}" />
+    <xacro:property name="samples" value="2000" />
     </xacro:if>
     <xacro:if value="${hz == 20}">
-    <xacro:property name="samples" value="${360.0 / 0.36}" />
+    <xacro:property name="samples" value="1000" />
     </xacro:if>
 
     <xacro:gazebo_lidar name="${name}" topic_points="${topic_points}" hz="${hz}" lasers="32" samples="${samples}" 
-                      min_range="0.5" max_range="300" noise="0.005" min_angle="-${M_PI}" 
+                      min_range="0.5" max_range="150" noise="0.01" min_angle="-${M_PI}" 
                       max_angle="${M_PI}" vfov_min="-0.349066" vfov_max="0.331613" gpu="${gpu}"/>
 
     </xacro:macro>
