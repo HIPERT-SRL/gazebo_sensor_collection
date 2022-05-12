@@ -7,9 +7,9 @@
     <joint name="${name}_frame_joint" type="fixed">
         <xacro:insert_block name="origin" /> 
         <parent link="${parent}"/>
-        <child link="${name}_link" />
+        <child link="${namespace}/${name}_link" />
     </joint>
-    <link name="${name}_link">
+    <link name="${namespace}/${name}_link">
         <inertial>
             <mass value="0.05" />
                 <inertia ixx="0.0"  ixy="0.0"  ixz="0.0"
@@ -33,18 +33,18 @@
         </collision>
     </link>
 
-    <gazebo reference="${name}_link">
+    <gazebo reference="${namespace}/${name}_link">
         <material>Gazebo/FlatBlack</material>
     </gazebo>
 
     <joint name="${name}_optical_frame_joint" type="fixed">
         <origin xyz="0.0 0 0" rpy="0 0 0"/>
-        <parent link="${name}_link"/>
-        <child link="${name}_optical_link"/>
+        <parent link="${namespace}/${name}_link"/>
+        <child link="${namespace}/${name}_optical_link"/>
     </joint>
-    <link name="${name}_optical_link"/>
+    <link name="${namespace}/${name}_optical_link"/>
 
     <!-- extension -->
-    <xacro:gazebo_camera name="${name}_image" reference="${name}_optical_link" hz="${hz}" h_fov="${h_fov}" width="1920" height="1080" format="${format}" frame_id="${name}_link"/>
+    <xacro:gazebo_camera name="${name}_image" reference="${name}_optical_link" hz="${hz}" h_fov="${h_fov}" width="1920" height="1080" format="${format}" frame_id="${namespace}/${name}_link"/>
     </xacro:macro>
 </robot>

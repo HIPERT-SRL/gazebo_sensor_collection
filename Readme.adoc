@@ -1,0 +1,13 @@
+= gazebo_sensor_collection
+Collection of ROS/Gazebo ready URDF sensors that can be attached to any model with ease.
+:toc:
+
+== 3D Lidars
+* Ouster OS0
+* Ouster OS1
+* Hesai Pandar XT32
+* Hesai Pandar XT32M2X
+
+== RGB Cameras
+* Econ See3CAM
+* Flir Firefly

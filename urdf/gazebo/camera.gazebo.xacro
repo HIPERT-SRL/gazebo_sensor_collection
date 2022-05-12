@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:macro name="gazebo_camera" params="name reference hz h_fov width height format frame_id">
-    <gazebo reference="${reference}">
+    <gazebo reference="${namespace}/${reference}">
         <sensor type="camera" name="${name}_sensor">
             <update_rate>${hz}</update_rate>
             <camera>
@@ -27,10 +27,10 @@
             <plugin name="${name}_controller" filename="libgazebo_ros_camera.so">
                 <alwaysOn>true</alwaysOn>
                 <updateRate>${hz}</updateRate>
-                <cameraName>${name}</cameraName>
+                <cameraName>${namespace}/${name}</cameraName>
                 <imageTopicName>image_raw</imageTopicName>
                 <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-                <frameName>${frame_id}</frameName>
+                <frameName>${namespace}/${frame_id}</frameName>
                 <autoDistortion>true</autoDistortion>
             </plugin>
         </sensor>
