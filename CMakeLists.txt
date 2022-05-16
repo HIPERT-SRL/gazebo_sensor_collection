@@ -26,14 +26,14 @@ link_directories(
     ${GAZEBO_LIBRARY_DIRS}
 )
 
-add_library(gazebo_ros_lidar src/lidar/GazeboRosLidar.cpp)
+add_library(gazebo_ros_lidar src/GazeboRosLidar.cpp)
 target_link_libraries(gazebo_ros_lidar
     ${catkin_LIBRARIES}
     ${GAZEBO_LIBRARIES}
     RayPlugin
 )
 
-add_library(gazebo_ros_lidar_gpu src/lidar/GazeboRosLidar.cpp)
+add_library(gazebo_ros_lidar_gpu src/GazeboRosLidar.cpp)
 target_link_libraries(gazebo_ros_lidar_gpu
     ${catkin_LIBRARIES}
     ${GAZEBO_LIBRARIES}
