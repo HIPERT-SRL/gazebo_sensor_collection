@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="gazebo_gps" params="name hz rtk">
+        <gazebo>
+            <plugin name="${name}_gazebo_gps_controller" filename="libhector_gazebo_ros_gps.so">
+                <robotNamespace>/${namespace}</robotNamespace>
+                <updateRate>${hz}</updateRate>
+                <bodyName>${namespace}/${name}_link</bodyName>
+                <frameName>${name}_link</frameName>
+                <topicName>/${namespace}/fix</topicName>
+                <velocityTopicName>/${namespace}/fix_vel</velocityTopicName>                    
+                <xacro:if value="${rtk}">
+                    <status>2</status>
+                    <drift>0 0 0</drift>
+                    <gaussianNoise>0.02 0.02 0.02</gaussianNoise>
+                    <velocityDrift>0 0 0</velocityDrift>
+                    <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>
+                </xacro:if>
+                <xacro:unless value="${rtk}">
+                    <status>1</status>
+                    <drift>2.0 2.0 2.0</drift>
+                    <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
+                    <velocityDrift>0 0 0</velocityDrift>
+                    <velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>
+                </xacro:unless>
+            </plugin>
+        </gazebo>
+    </xacro:macro>
+</robot>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+    <xacro:macro name="gazebo_imu" params="name hz">
+        <gazebo>
+            <plugin name="${name}_gazebo_imu_controller" filename="libhector_gazebo_ros_imu.so">
+                <robotNamespace>/${namespace}</robotNamespace>
+                <updateRate>${hz}</updateRate> 
+                <bodyName>${namespace}/${name}_link</bodyName>
+                <frameName>${name}_link</frameName>
+                <topicName>/${namespace}/imu</topicName>
+                <gaussianNoise>0.0005</gaussianNoise>
+                <yawOffset>${M_PI/2}</yawOffset>
+            </plugin>
+        </gazebo>
+    </xacro:macro>
+</robot>

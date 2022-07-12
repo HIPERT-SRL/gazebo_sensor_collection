@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find gazebo_sensor_collection)/urdf/gazebo/gps.gazebo.xacro" />
+    <xacro:include filename="$(find gazebo_sensor_collection)/urdf/gazebo/imu.gazebo.xacro" />
+    
+    <xacro:macro name="MTI680" params="*origin parent name rtk:=true">
+        <joint name="${name}_frame_joint" type="fixed">
+            <xacro:insert_block name="origin" /> 
+            <parent link="${parent}"/>
+            <child link="${namespace}/${name}_link"/>
+        </joint>
+
+        <link name="${namespace}/${name}_link">
+            <inertial>
+                <mass value="0.001" />
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <inertia ixx="0.000000017" ixy="0" ixz="0" iyy="0.000000017" iyz="0" izz="0.000000017" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.1 0.1 0.1" />          
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.1 0.1 0.1" />
+                </geometry>
+            </collision>
+        </link>
+        
+        <!-- extension -->
+        <xacro:gazebo_gps name="${name}" hz="100" rtk="${rtk}"/>
+        <xacro:gazebo_imu name="${name}" hz="100"/>
+    </xacro:macro>
+</robot>
