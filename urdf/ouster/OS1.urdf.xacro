@@ -2,8 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:include filename="$(find gazebo_sensor_collection)/urdf/gazebo/lidar.gazebo.xacro" />
     <xacro:property name="M_PI" value="3.1415926535897931" />
-    <xacro:macro name="OS1" params="*origin parent:=base_link name:=os0 topic_points:=/os1/points hz:=10 lasers:=64 samples:=1024 
-                                    noise:=0.01 gpu:=true">
+    <xacro:macro name="OS1" params="*origin parent:=base_link name:=os0 topic_points:=/os1/points hz:=10 lasers:=64 samples:=1024 gpu:=true">
     
     <joint name="${name}_frame_joint" type="fixed">
         <xacro:insert_block name="origin" /> 
@@ -32,8 +31,8 @@
     </link>
 
     <xacro:gazebo_lidar name="${name}" topic_points="${topic_points}" hz="${hz}" lasers="${lasers}" samples="${samples}" 
-                      min_range="0.3" max_range="120" noise="${noise}" min_angle="-${M_PI}" 
-                      max_angle="${M_PI}" vfov_min="-0.3927" vfov_max="0.3927" gpu="${gpu}"/>
+                      min_range="0.3" max_range="120" noise="0.01" min_angle="-${M_PI}" 
+                      max_angle="${M_PI}" vfov_min="${-M_PI/8}" vfov_max="${M_PI/8}" gpu="${gpu}"/>
 
     </xacro:macro>
 </robot>
