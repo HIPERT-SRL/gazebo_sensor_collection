@@ -2,12 +2,31 @@
 Collection of ROS/Gazebo ready URDF sensors that can be attached to any model with ease.
 :toc:
 
-== 3D Lidars
+== Dependencies
+* Ubuntu 20.04
+* ROS Noetic
+
+== SUpported sensors
+=== 3D Lidars
 * Ouster OS0
 * Ouster OS1
 * Hesai Pandar XT32
 * Hesai Pandar XT32M2X
 
-== RGB Cameras
+=== RGB Cameras
 * Econ See3CAM
 * Flir Firefly
+
+=== GPS/IMU
+* Xsens 680
+
+== How to use
+Just clone it in your ROS workspace and run `rosdep install --from-paths src --ignore-src -r -y` to install all the required dependencies and build. Then you can add the sensors to your URDF's files like below:
+[source, xml]
+----
+<xacro:include filename="$(find gazebo_sensor_collection)/urdf/econ/see3cam.urdf.xacro" /> 
+<xacro:see3cam name="front_camera" parent="base_link"> 
+    <origin xyz="0.094 0 0.8225" 
+            rpy="0 0 0" />
+</xacro:see3cam>
+----

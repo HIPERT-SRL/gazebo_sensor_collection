@@ -13,6 +13,8 @@
   <depend>sensor_msgs</depend>
   <depend>tf</depend>
   <depend>gazebo_ros</depend>
+  <exec_depend>gazebo_plugins</exec_depend>
+  <exec_depend>hector_gazebo_plugins</exec_depend>
 
   <export>
   </export>
